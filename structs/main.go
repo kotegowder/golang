@@ -10,7 +10,7 @@ type contactInfo struct {
 type person struct {
 	firstName string
 	lastName  string
-	contact   contactInfo
+	contactInfo
 }
 
 func main() {
@@ -27,10 +27,28 @@ func main() {
 	name1.lastName = "Kotegowder"
 	fmt.Printf("%+v", name1)
 
-	var name2 person
-	name2.firstName = "Vinay"
-	name2.lastName = "Kotegowder"
-	name2.contact.email = "vinay.kotegowder@gmail.com"
-	name2.contact.zipCode = 577004
-	fmt.Printf("%+v", name2)
+	name2 := person{
+		firstName: "Vinay",
+		lastName:  "Kotegowder",
+		contactInfo: contactInfo{
+			email:   "vinay.kotegowder@gmail.com",
+			zipCode: 577004,
+		},
+	}
+
+	name2.details()
+	//name2Pointer := &name2
+	//name2Pointer.updateName("Vidhya")
+	name2.updateName("Vidhya")
+	name2.details()
+}
+
+func (p person) details() {
+	fmt.Printf("%+v", p)
+}
+
+// *person -> This is a type declaration - it means we're working with a pointer to a person
+// *pToPerson -> This is an operator - it means we want to manipualate the value the pointer is referencing
+func (pToPerson *person) updateName(firstName string) {
+	(*pToPerson).firstName = firstName
 }
